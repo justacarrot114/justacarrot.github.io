@@ -1,42 +1,5 @@
-# 网站基本信息
-title: Cayman
-description: 简洁现代的 Cayman 主题博客
-baseurl: ""
-url: "https://yourusername.github.io"
-
-# 主题设置
-remote_theme: pages-themes/cayman@v0.2.0
-
-# 作者信息
-author:
-  name: justacarrot
-  email: 3390952951@qq.com
-  github: justacarot114
-
-# 导航菜单
-nav_menu:
-  - title: 首页
-    url: /
-  - title: 关于
-    url: /about/
-  - title: 归档
-    url: /archive/
-
-# 社交链接
-social_links:
-  github: your-github-username
-  twitter: your-twitter-username
-  linkedin: your-linkedin-username
-
-# 博客设置
-paginate: 5
-paginate_path: "/page:num/"
-
-# 代码高亮
-markdown: kramdown
-kramdown:
-  syntax_highlighter: rouge
-
-# 评论系统（可选）
-disqus:
-  shortname: your-disqus-shortname
+title: carrot's blog
+description: Good morning, Good afternoon, Good evening, And good night.
+show_downloads: true
+google_analytics:
+theme: jekyll-theme-s
