@@ -1,0 +1,30 @@
+title: justacarrot.github.io
+description: 我的个人博客
+theme: minima
+
+# 基础配置
+baseurl: ""
+url: "https://justacarrot114.github.io"
+
+# 博客设置
+paginate: 5
+paginate_path: "/page:num/"
+
+# 社交链接
+social_links:
+  github: justacarrot114
+  email: your-email@example.com
+
+# 代码高亮
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+
+# 导航菜单
+nav_menu:
+  - title: 首页
+    url: /
+  - title: 关于
+    url: /about/
+  - title: 归档
+    url: /archive/
