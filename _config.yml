@@ -1,7 +1,7 @@
 remote_theme: pages-themes/chirpy@v5
 title: 胡萝卜的博客
 description: 早上好中午好晚上好过年好
-cover_image:/assets/背景.jpg
+cover_image:/assets/cloud.jpg
 author:
  name: carrot
- avatar: /assets/猫.jpg
+ avatar: /assets/cat.jpg
