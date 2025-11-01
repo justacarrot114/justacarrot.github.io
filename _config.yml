@@ -2,6 +2,6 @@ theme: jekyll-theme-slate
 title: 胡萝卜的博客
 description: 早上好中午好晚上好过年好
 cover_image:/assets/背景.jpg
-author:carrot
-name: carrot
-avatar: /assets/猫.jpg
+author:
+ name: carrot
+ avatar: /assets/猫.jpg
