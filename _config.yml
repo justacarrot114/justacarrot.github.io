@@ -1,4 +1,4 @@
-remote_theme: cotes2020/jekyll-theme-chirpy@5.3.0
+theme: jekyll-theme-primer
 title: 胡萝卜的博客
 description: 早上好中午好晚上好过年好
 cover_image: /assets/cloud.jpg
