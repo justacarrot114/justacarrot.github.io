@@ -1,4 +1,4 @@
-theme: jekyll-theme-slate
+remote_theme: pages-themes/chirpy@v5
 title: 胡萝卜的博客
 description: 早上好中午好晚上好过年好
 cover_image:/assets/背景.jpg
