@@ -1,22 +1,19 @@
-# 主题与基础信息
-theme: jekyll-theme-primer  # 保持主题，后续加自定义样式
+# 博客基础信息（会被default.html调用）
+theme: jekyll-theme-primer  # 保持主题（虽极简但基础功能可用）
 title: 胡萝卜的博客
-description: 早上好朋友们
-cover_image: /assets/cloud.jpg
+description: ~~~///(^v^)\\\~~~
+
+# 视觉相关配置（封面图、头像，对应default.html里的显示）
+cover_image: /assets/cloud.jpg  # 封面图路径（和你原来一致）
 author:
-  name: carrot
-  avatar: /assets/cat.jpg
+  name: carrot  # 你的昵称
+  avatar: /assets/cat.jpg  # 头像路径（和你原来一致）
 
-# 新增：导航栏菜单（自定义页面）
-header_pages:
-  - index.md
-  - about.md  # 需新建 source/about.md
-
-# 新增：社交链接（主题支持的配置）
+# 社交链接（对应default.html里的GitHub图标）
 social_links:
-  github: justacarrot114  # 你的GitHub账号
-  # 可加：twitter: xxx、email: xxx@xxx.com
+  github: justacarrot114  # 你的GitHub账号（点击会跳转）
 
-# 新增：页面布局与显示
-show_excerpts: true  # 列表页显示文章摘要
-permalink: /posts/:title/  # 文章URL格式（更友好）
+# 文章相关配置
+show_excerpts: true  # 列表页显示文章摘要（配合文章里的<!--more-->使用）
+permalink: /posts/:title/  # 文章URL格式（更简洁友好）
+
