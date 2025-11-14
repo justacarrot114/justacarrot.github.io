@@ -1,7 +1,7 @@
 ---
-layout: page
+layout: default
 title: 关于我
-permalink: /about/
+permalink: /about.html
 ---
 
 你好呀~我是胡萝卜！
