@@ -1,7 +1,22 @@
-theme: jekyll-theme-primer
+# 主题与基础信息
+theme: jekyll-theme-primer  # 保持主题，后续加自定义样式
 title: 胡萝卜的博客
-description: 早上好中午好晚上好过年好
+description: 早上好朋友们
 cover_image: /assets/cloud.jpg
 author:
   name: carrot
   avatar: /assets/cat.jpg
+
+# 新增：导航栏菜单（自定义页面）
+header_pages:
+  - index.md
+  - about.md  # 需新建 source/about.md
+
+# 新增：社交链接（主题支持的配置）
+social_links:
+  github: justacarrot114  # 你的GitHub账号
+  # 可加：twitter: xxx、email: xxx@xxx.com
+
+# 新增：页面布局与显示
+show_excerpts: true  # 列表页显示文章摘要
+permalink: /posts/:title/  # 文章URL格式（更友好）
