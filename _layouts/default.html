@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <title>{{ page.title }}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <!-- 引入GitHub主题默认样式（必须保留） -->
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+  <!-- 引入你的自定义CSS（强制覆盖样式） -->
+  <link rel="stylesheet" href="{{ '/assets/custom.css' | relative_url }}">
 </head>
 <body>
-  {{ content }}
+  <!-- 新增导航栏 -->
+  <header style="padding: 16px; background: #f5f5f5; border-bottom: 1px solid #eee;">
+    <nav>
+      <a href="{{ '/' | relative_url }}" style="margin-right: 20px; text-decoration: none; color: #2c3e50;">首页</a>
+      <a href="{{ '/about.html' | relative_url }}" style="text-decoration: none; color: #2c3e50;">关于</a>
+    </nav>
+  </header>
+
+  <!-- 页面内容区域（保留原功能） -->
+  <main style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+    {{ content }}
+  </main>
+
+  <footer style="text-align: center; padding: 20px; color: #666;">
+    © {{ site.time | date: '%Y' }} {{ site.author.name }}
+  </footer>
 </body>
 </html>
-<link rel="stylesheet" href="/assets/custom.css">
+
