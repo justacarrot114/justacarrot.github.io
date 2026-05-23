@@ -34,32 +34,45 @@ article.Post {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* ========== 页脚样式（白底黑字 + 缩小尺寸）========== */
+/* ========== 页脚强制白底黑字 + 缩小 ========== */
+/* 覆盖所有可能的背景 */
 #footer,
-#footer.footer {
-    background-color: #fff !important;
-    background: #fff !important;
-    color: #1a1a1a !important;
-    padding: 12px 0 !important; /* 缩小上下内边距 */
+#footer *,
+#footer.footer,
+.footer {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    background-image: none !important;
+}
+
+    /* 页脚文字颜色 */
+    #footer,
+    #footer * {
+        color: #1a1a1a !important;
+    }
+
+        /* 页脚链接颜色 */
+        #footer a,
+        #footer a:visited {
+            color: #2c3e50 !important;
+            background: transparent !important;
+        }
+
+            #footer a:hover {
+                color: #000000 !important;
+                text-decoration: underline !important;
+            }
+
+/* 页脚尺寸缩小 */
+#footer {
+    padding: 12px 0 !important;
     font-size: 13px !important;
     line-height: 1.5 !important;
 }
 
-    /* 页脚链接颜色 */
-    #footer a,
-    #footer .footer a {
-        color: #2c3e50 !important;
-        background: transparent !important;
-    }
-
-        #footer a:hover {
-            color: #000 !important;
-            text-decoration: underline !important;
-        }
-
-/* 页脚内容宽度控制（可选） 
+/* 限制页脚内容宽度（可选） */
 #footer-wrap {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-}*/
+}
