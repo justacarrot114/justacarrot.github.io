@@ -1,4 +1,4 @@
-/* 全局字体优化（替换为更美观的字体） */
+/* 全局字体优化 */
 body {
     font-family: "Noto Sans SC", "Microsoft Yahei", sans-serif;
 }
@@ -19,7 +19,7 @@ header.Header {
         color: white !important;
     }
 
-/* 文章卡片阴影（列表页） */
+/* 文章卡片阴影 */
 article.Post {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     border-radius: 8px;
@@ -33,33 +33,3 @@ article.Post {
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-
-/* ========== 页脚样式（白底黑字 + 缩小尺寸）========== */
-#footer,
-#footer.footer {
-    background-color: #fff !important;
-    background: #fff !important;
-    color: #1a1a1a !important;
-    padding: 12px 0 !important; /* 缩小上下内边距 */
-    font-size: 13px !important;
-    line-height: 1.5 !important;
-}
-
-    /* 页脚链接颜色 */
-    #footer a,
-    #footer .footer a {
-        color: #2c3e50 !important;
-        background: transparent !important;
-    }
-
-        #footer a:hover {
-            color: #000 !important;
-            text-decoration: underline !important;
-        }
-
-/* 页脚内容宽度控制（可选） 
-#footer-wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}*/
