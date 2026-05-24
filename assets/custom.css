@@ -1,4 +1,4 @@
-/* 全局字体优化 */
+/* 全局字体优化（替换为更美观的字体） */
 body {
     font-family: "Noto Sans SC", "Microsoft Yahei", sans-serif;
 }
@@ -19,7 +19,7 @@ header.Header {
         color: white !important;
     }
 
-/* 文章卡片阴影 */
+/* 文章卡片阴影（列表页） */
 article.Post {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     border-radius: 8px;
@@ -33,3 +33,13 @@ article.Post {
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
+
+/* 底部栏改为白底黑字 */
+#footer {
+    background: #fff !important;
+    color: #000 !important;
+}
+
+    #footer a {
+        color: #000 !important;
+    }
