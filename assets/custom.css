@@ -34,12 +34,32 @@ article.Post {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* 底部栏改为白底黑字（先加上，但不要用太暴力的覆盖） */
-#footer {
+/* ========== 页脚样式（白底黑字 + 缩小尺寸）========== */
+#footer,
+#footer.footer {
+    background-color: #fff !important;
     background: #fff !important;
-    color: #000 !important;
+    color: #1a1a1a !important;
+    padding: 12px 0 !important; /* 缩小上下内边距 */
+    font-size: 13px !important;
+    line-height: 1.5 !important;
 }
 
-    #footer a {
-        color: #000 !important;
+    /* 页脚链接颜色 */
+    #footer a,
+    #footer .footer a {
+        color: #2c3e50 !important;
+        background: transparent !important;
     }
+
+        #footer a:hover {
+            color: #000 !important;
+            text-decoration: underline !important;
+        }
+
+/* 页脚内容宽度控制（可选） 
+#footer-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}*/
